@@ -4,7 +4,7 @@ import code.project.fastCopy.copyStrategies.impl.*;
 import code.project.fastCopy.data.CopyStrategy;
 
 public class CopyStrategySelector {
-    public Copy getCopyObjectByCopyStrategy(CopyStrategy copyStrategy){
+    public static Copy getCopyObjectByCopyStrategy(CopyStrategy copyStrategy){
         switch (copyStrategy){
             case FILES_PATH:
                 return new PathCopy();
