@@ -42,10 +42,8 @@ public class ParallelJobProcessor implements JobProcessor
         return BackGroundJobProcessorInitializer.PARALLEL_JOB_PROCESSOR; // Bill Pugh Singleton
     }
 
-    //Thread Pool of Size - Number of Available Processor cores or 32, whichever is less
-    private final ExecutorService					executor		= Executors.newFixedThreadPool(
-            Runtime.getRuntime().availableProcessors() > 32 ? 32 : Runtime.getRuntime().availableProcessors(),
-            new ThreadFactoryBuilder().setNameFormat("parallel-job-processor-worker-%d").build());
+    private final ExecutorService					executor		= Executors.newFixedThreadPool(1,
+            new ThreadFactoryBuilder().setNameFormat("copy-worker-%d").build());
 
     private final BlockingQueue<JobElement>			BLOCKING_QUEUE	= new LinkedBlockingQueue<>();
     private final BlockingQueue<TemporalJobElement>	DELAYED_QUEUE	= new DelayQueue<>();
