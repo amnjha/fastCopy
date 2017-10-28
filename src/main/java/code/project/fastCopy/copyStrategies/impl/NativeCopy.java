@@ -1,6 +1,8 @@
 package code.project.fastCopy.copyStrategies.impl;
 
 import code.project.fastCopy.copyStrategies.Copy;
+import code.project.fastCopy.data.OperatingSystem;
+import code.project.fastCopy.utils.CopyUtils;
 
 import java.io.File;
 import java.io.IOException;
@@ -14,9 +16,7 @@ public class NativeCopy implements Copy {
 
     @Override
     public void copyFile(File source, File target) {
-        final String OS_NAME=System.getProperty("os.name").toLowerCase();
-
-        if(!(OS_NAME.indexOf("nix")>=0))
+        if(!OperatingSystem.UNIX.equals(CopyUtils.getOperatingSystem()))
             throw new UnsupportedOperationException("This Method is only Supported for Unix Operating System!");
 
         Process p = null;
