@@ -90,4 +90,14 @@ public class CopyUtils {
             return true;
         }
     }
+
+    public static boolean createDirectoryIfNotExists(String directoryPath){
+        File file= new File(directoryPath);
+        if(!file.exists())
+            return file.mkdirs();
+        else if(file.exists() && file.isFile())
+            return file.mkdirs();
+        else
+            return false;
+    }
 }
