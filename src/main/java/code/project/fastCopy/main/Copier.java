@@ -56,10 +56,10 @@ public class Copier {
             copyDirectory(sourceFile,destPath,diskType);
         }
         else {
-            Job copyJob = new CopyJob(sourceFile.getName(), diskType, sourceFile, new File(destPath));
-            copyJob.doJob();
+            submitCopyJob(diskType, sourceFile, new File(destPath));
             totalFileSize+=sourceFile.length()/1024;
         }
+
         if(totalFileSize!=0)
             CopyStatus.setTotalSourceFileSize(totalFileSize);
         else
@@ -83,9 +83,13 @@ public class Copier {
             }
             else {
                 totalFileSize+=file.length()/1024;
-                Job copyJob = new CopyJob(file.getName(), diskType, file, new File(destinationFilePath));
-                JOB_PROCESSOR.executeJob(copyJob);
+                submitCopyJob(diskType, source,new File(destinationFilePath));
             }
         }
+    }
+
+    private static void submitCopyJob(DiskType diskType, File sourceFile, File destFile){
+        Job copyJob = new CopyJob(sourceFile.getName(), diskType, sourceFile, destFile);
+        JOB_PROCESSOR.executeJob(copyJob);
     }
 }
