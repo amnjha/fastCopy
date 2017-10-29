@@ -348,9 +348,10 @@ public class ParallelJobProcessor implements JobProcessor
 
     /**
      * Clean - Up Method before the bean is destroyed.
+     * @param interruptThreads {@link Boolean} whether the submitted jobs are to be interrupted or not.
      */
     @PreDestroy
-    public void cleanUp()
+    public void cleanUp(boolean interruptThreads)
     {
         /**
          * Stop The Consumer Threads,
@@ -358,7 +359,10 @@ public class ParallelJobProcessor implements JobProcessor
          */
         BLOCKING_CONSUMER.stopConsumer();
         DELAYED_CONSUMER.stopConsumer();
-        executor.shutdownNow();
+        if(interruptThreads)
+        	executor.shutdownNow();
+        else
+        	executor.shutdown();
     }
 
 }
