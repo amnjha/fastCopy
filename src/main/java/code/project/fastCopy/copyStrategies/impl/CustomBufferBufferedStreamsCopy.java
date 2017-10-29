@@ -1,7 +1,6 @@
 package code.project.fastCopy.copyStrategies.impl;
 
 import code.project.fastCopy.copyStrategies.Copy;
-import sun.plugin2.gluegen.runtime.CPU;
 
 import java.io.*;
 
